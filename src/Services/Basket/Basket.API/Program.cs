@@ -2,6 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Add services to the container
 
+
 var assembly = typeof(Program).Assembly;
 builder.Services.AddCarter();
 builder.Services.AddMediatR(config =>
@@ -17,9 +18,13 @@ builder.Services.AddMarten(opts =>
     opts.Schema.For<ShoppingCart>().Identity(x => x.UserName);
 }).UseLightweightSessions();
 
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
 //configure the http request pipeline
 app.MapCarter();
+app.UseExceptionHandler(options => { });
 
 app.Run();
