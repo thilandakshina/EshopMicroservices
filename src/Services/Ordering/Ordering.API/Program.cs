@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Application - MediatR
 //API - Carter, HealthChecks
 builder.Services
-    .AddApplicationServices()
+    //.AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration)
     .AddApiServices();
 
